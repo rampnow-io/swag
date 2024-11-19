@@ -99,7 +99,7 @@ func (ps *tagBaseFieldParser) FieldNames() ([]string, error) {
 	return names, nil
 }
 
-func (ps *tagBaseFieldParser) firstTagValue(tag string) string {
+func (ps *tagBaseFieldParser) FirstTagValue(tag string) string {
 	if ps.field.Tag != nil {
 		return strings.TrimRight(strings.TrimSpace(strings.Split(ps.tag.Get(tag), ",")[0]), "[]")
 	}
@@ -107,15 +107,15 @@ func (ps *tagBaseFieldParser) firstTagValue(tag string) string {
 }
 
 func (ps *tagBaseFieldParser) FormName() string {
-	return ps.firstTagValue(formTag)
+	return ps.FirstTagValue(formTag)
 }
 
 func (ps *tagBaseFieldParser) HeaderName() string {
-	return ps.firstTagValue(headerTag)
+	return ps.FirstTagValue(headerTag)
 }
 
 func (ps *tagBaseFieldParser) PathName() string {
-	return ps.firstTagValue(uriTag)
+	return ps.FirstTagValue(uriTag)
 }
 
 func toSnakeCase(in string) string {
@@ -472,16 +472,6 @@ func (ps *tagBaseFieldParser) complementSchema(schema *spec.Schema, types []stri
 	eleSchema.MaxLength = field.maxLength
 	eleSchema.MinLength = field.minLength
 	eleSchema.Enum = field.enums
-
-	if schema.Extensions == nil {
-		schema.Extensions = map[string]interface{}{}
-	}
-	if ps.firstTagValue(paramTag) != "" {
-		schema.Extensions[paramTag] = ps.firstTagValue(paramTag)
-	}
-	if ps.firstTagValue(queryTag) != "" {
-		schema.Extensions[queryTag] = ps.firstTagValue(queryTag)
-	}
 
 	return nil
 }

@@ -194,6 +194,7 @@ type FieldParser interface {
 	FormName() string
 	HeaderName() string
 	PathName() string
+	FirstTagValue(tag string) string
 	CustomSchema() (*spec.Schema, error)
 	ComplementSchema(schema *spec.Schema) error
 	IsRequired() (bool, error)
@@ -1650,6 +1651,12 @@ func (parser *Parser) parseStructField(file *ast.File, field *ast.Field) (map[st
 	}
 	if pathName := ps.PathName(); len(pathName) > 0 {
 		schema.Extensions["path"] = pathName
+	}
+	if paramName := ps.FirstTagValue(paramTag); len(paramTag) > 0 {
+		schema.Extensions[paramTag] = paramName
+	}
+	if queryName := ps.FirstTagValue(queryTag); len(queryName) > 0 {
+		schema.Extensions[queryTag] = queryName
 	}
 	fields := make(map[string]spec.Schema)
 	for _, name := range fieldNames {
