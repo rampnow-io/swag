@@ -492,7 +492,7 @@ const (
 	formTag             = "form"
 	jsonTag             = "json"
 	queryTag            = "query"
-	paramTag            = "path"
+	paramTag            = "param"
 	uriTag              = "uri"
 	headerTag           = "header"
 	bindingTag          = "binding"

@@ -1652,7 +1652,7 @@ func (parser *Parser) parseStructField(file *ast.File, field *ast.Field) (map[st
 	if pathName := ps.PathName(); len(pathName) > 0 {
 		schema.Extensions["path"] = pathName
 	}
-	if paramName := ps.FirstTagValue(paramTag); len(paramTag) > 0 {
+	if paramName := ps.FirstTagValue(paramTag); len(paramName) > 0 {
 		schema.Extensions[paramTag] = paramName
 	}
 	if queryName := ps.FirstTagValue(queryTag); len(queryName) > 0 {
